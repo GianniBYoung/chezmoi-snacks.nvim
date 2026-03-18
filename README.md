@@ -1,8 +1,8 @@
-# Chezmoi-Telescope.nvim
+# Chezmoi.nvim
 
-Custom Telescope Picker for Chez Moi Managed Dot Files!
+Snacks.nvim picker for Chezmoi managed dotfiles!
 
-Also adds neovim commands to:
+Also adds Neovim commands to:
 
 - `add`
 
@@ -13,69 +13,63 @@ Also adds neovim commands to:
 
 - `update` Chezmoi's source
 
-# Installation
+## Installation
 
-All that is needed is to install the plugin and load the `telescope extension` via `require("telescope").load_extension("chezmoi")`.
-
-Here is an example with Lazy:
+Install the plugin and call `setup()`. Here is an example with Lazy:
 
 ```lua
 {
-    "nvim-telescope/telescope.nvim",
+    "GianniBYoung/chezmoi-snacks.nvim",
     dependencies = {
-        { "GianniBYoung/chezmoi-telescope.nvim" },
+        { "folke/snacks.nvim" },
     },
     config = function()
-        require("telescope").load_extension("chezmoi")
+        require("chezmoi").setup()
     end,
 }
 ```
 
 ## Pre-Reqs
 
-- [Chez Moi](https://www.chezmoi.io/)
+- [Chezmoi](https://www.chezmoi.io/)
 
-- [Telescope](https://github.com/nvim-telescope/telescope.nvim/tree/master)
-
-- [nvim-web-devicons (optional)](https://github.com/nvim-tree/nvim-web-devicons)
+- [snacks.nvim](https://github.com/folke/snacks.nvim)
 
 ## Usage
 
-- `:Telescope chezmoi dotfiles` -> Open telescope picker populated with Chezmoi managed dot files
+- `:ChezmoiDotfiles` -> Open picker populated with Chezmoi managed dot files
   - This opens the file in chezmoi's source dir
 
-- `:Telescope chezmoi dotfiles liveDots=true` -> Open telescope picker populated with (Live) Chezmoi managed dot files
+- `:ChezmoiDotfiles live` -> Open picker populated with (Live) Chezmoi managed dot files
   - This opens the actual dotfile on your system
 
 - `:ChezmoiAdd` -> `add` the current file to Chezmoi
 
 - `:ChezmoiReAdd` -> `re-add` the current file to Chezmoi
 
-- `:ChezmoiRemove` -> `remove` the current file from Chezmoi
+- `:ChezmoiForget` -> `forget` the current file from Chezmoi
 
 - `:ChezmoiUpdate` -> Pull down the remote source
 
+### Lua API
+
+```lua
+require("chezmoi").dotfiles()
+require("chezmoi").dotfiles({ live_dots = true })
+```
+
 ### Options
-The available options are:
-- `icons` bool(true) - Enable or disable icons
-- `liveDots` bool(false) - Populate the picker with the actual dotfiles your system is using - aka 'live dot files'
+The available options for `dotfiles()` are:
+- `live_dots` bool(false) - Populate the picker with the actual dotfiles your system is using
 
-Options can be set in the following ways:
+## Features
 
-1. `:Telescope chezmoi dotfiles option1=value1 option2=bool2`
+This plugin provides a Snacks.nvim picker that populates results with files from `$CHEZMOI_SOURCE_DIR` and opens the result in a new buffer on selection.
 
-2. `require('telescope').extensions.chezmoi.dotfiles({option1="value1", option2=bool2})`
-
-# Features
-
-This plugin provides a custom picker for telescope that populates results with files from `$CHEZMOI_SOURCE_DIR` and opens the result in a new buffer on selection.
-
-# Roadmap
-
-- Better icons in picker
+## Roadmap
 
 - Better error handling
 
-# Contributing
+## Contributing
 
 If this plugin is missing functionality for your use case please open an issue or submit a PR!
