@@ -1,4 +1,4 @@
-# chezmoi-telescope.nvim
+# Chezmoi-Telescope.nvim
 
 Custom Telescope Picker for Chez Moi Managed Dot Files!
 
@@ -8,10 +8,10 @@ Also adds neovim commands to:
 
 - `forget`
 
-- 're-add'
+- `re-add`
   - Chezmoi does not overwrite template files and neither will this command
 
-- `update` chezmoi's source
+- `update` Chezmoi's source
 
 # Installation
 
@@ -31,13 +31,13 @@ Here is an example with Lazy:
 }
 ```
 
-## Pre-reqs
+## Pre-Reqs
 
--  [Chez Moi](https://www.chezmoi.io/)
+- [Chez Moi](https://www.chezmoi.io/)
 
--  [Telescope](https://github.com/nvim-telescope/telescope.nvim/tree/master)
+- [Telescope](https://github.com/nvim-telescope/telescope.nvim/tree/master)
 
--  [nvim-web-devicons (optional)](https://github.com/nvim-tree/nvim-web-devicons)
+- [nvim-web-devicons (optional)](https://github.com/nvim-tree/nvim-web-devicons)
 
 ## Usage
 
