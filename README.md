@@ -20,12 +20,8 @@ Install the plugin and call `setup()`. Here is an example with Lazy:
 ```lua
 {
     "GianniBYoung/chezmoi-snacks.nvim",
-    dependencies = {
-        { "folke/snacks.nvim" },
-    },
-    config = function()
-        require("chezmoi").setup()
-    end,
+    dependencies = { { "folke/snacks.nvim" } },
+    config = true,
 }
 ```
 
@@ -61,14 +57,6 @@ require("chezmoi").dotfiles({ live_dots = true })
 ### Options
 The available options for `dotfiles()` are:
 - `live_dots` bool(false) - Populate the picker with the actual dotfiles your system is using
-
-## Features
-
-This plugin provides a Snacks.nvim picker that populates results with files from `$CHEZMOI_SOURCE_DIR` and opens the result in a new buffer on selection.
-
-## Roadmap
-
-- Better error handling
 
 ## Contributing
 
