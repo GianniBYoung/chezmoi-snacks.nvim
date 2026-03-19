@@ -86,9 +86,12 @@ function M.setup()
 	end, {})
 
 	vim.api.nvim_create_user_command("ChezmoiReAdd", function()
-		vim.cmd("silent write")
+		if vim.bo.modified then
+			vim.cmd("write")
+		end
 		local current_file = normalize_path(vim.fn.expand("%:p"))
-		local output = vim.fn.system("chezmoi re-add " .. vim.fn.shellescape(current_file))
+		local cmd = "chezmoi re-add " .. vim.fn.shellescape(current_file)
+		local output = vim.fn.system(cmd)
 		if vim.v.shell_error ~= 0 then
 			vim.notify("chezmoi re-add failed: " .. output, vim.log.levels.ERROR)
 		else

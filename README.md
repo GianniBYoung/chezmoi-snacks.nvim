@@ -21,6 +21,7 @@ Install the plugin and call `setup()`. Here is an example with Lazy:
 {
     "GianniBYoung/chezmoi-snacks.nvim",
     dependencies = { { "folke/snacks.nvim" } },
+    event = "VeryLazy",
     config = true,
 }
 ```
