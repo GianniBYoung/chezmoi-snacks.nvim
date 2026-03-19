@@ -2,6 +2,15 @@ local M = {}
 
 local chezmoi_source_dir = io.popen("chezmoi source-path"):read("*a"):gsub("%s+", "")
 
+local function normalize_path(path)
+	local home = vim.fn.expand("$HOME")
+	local real_home = vim.uv.fs_realpath(home) or home
+	if real_home ~= home then
+		path = path:gsub("^" .. vim.pesc(real_home), home)
+	end
+	return path
+end
+
 local function get_dotfiles()
 	local results = {}
 	local handle =
@@ -71,19 +80,24 @@ end
 
 function M.setup()
 	vim.api.nvim_create_user_command("ChezmoiAdd", function()
-		local current_file = vim.fn.expand("%:p")
+		local current_file = normalize_path(vim.fn.expand("%:p"))
 		vim.fn.system("chezmoi add " .. vim.fn.shellescape(current_file))
 		vim.notify("Added to Chezmoi: " .. current_file)
 	end, {})
 
 	vim.api.nvim_create_user_command("ChezmoiReAdd", function()
-		local current_file = vim.fn.expand("%:p")
-		vim.fn.system("chezmoi re-add " .. vim.fn.shellescape(current_file))
-		vim.notify("Re-Added to Chezmoi: " .. current_file)
+		vim.cmd("silent write")
+		local current_file = normalize_path(vim.fn.expand("%:p"))
+		local output = vim.fn.system("chezmoi re-add " .. vim.fn.shellescape(current_file))
+		if vim.v.shell_error ~= 0 then
+			vim.notify("chezmoi re-add failed: " .. output, vim.log.levels.ERROR)
+		else
+			vim.notify("Re-Added to Chezmoi: " .. current_file)
+		end
 	end, {})
 
 	vim.api.nvim_create_user_command("ChezmoiForget", function()
-		local current_file = vim.fn.expand("%:p")
+		local current_file = normalize_path(vim.fn.expand("%:p"))
 		vim.fn.system("chezmoi forget --force " .. vim.fn.shellescape(current_file))
 		vim.notify("Removing Chezmoi file: " .. current_file)
 	end, {})
